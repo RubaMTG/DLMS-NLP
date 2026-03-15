@@ -14,3 +14,10 @@ urlpatterns = [
     #   /notifications/beneficiary/<id>/access/
     path('notifications/', include('notifications.urls')),
 ]
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/nlp/', include('nlp_engine.urls')),
+    path('notifications/', include('notifications.urls')),
+    path('api/documents/', include('documents.urls')),  # ← ADD THIS
+]

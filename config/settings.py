@@ -27,12 +27,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third-party
     'rest_framework',
+'rest_framework.authtoken',
     'channels',
     # Local apps
     'users',
     'documents',
     'nlp_engine',
-    'notifications',
+    'notifications',    
+'storages',
+
+
 ]
 
 # === Middleware ===
@@ -77,8 +81,12 @@ CHANNEL_LAYERS = {
 # === Database ===
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':   'django.db.backends.postgresql',
+        'NAME':     env('DB_NAME'),
+        'USER':     env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST':     env('DB_HOST'),
+        'PORT':     env('DB_PORT'),
     }
 }
 
@@ -121,3 +129,43 @@ APP_BASE_URL = env('APP_BASE_URL')
 INACTIVITY_THRESHOLD_DAYS = env.int('INACTIVITY_THRESHOLD_DAYS')
 GRACE_PERIOD_DAYS = env.int('GRACE_PERIOD_DAYS')
 VERIFICATION_EXPIRY_HOURS = env.int('VERIFICATION_EXPIRY_HOURS')
+
+
+# === AWS S3 Storage ===
+import storages
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID       = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY   = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME      = env('AWS_S3_REGION_NAME')
+
+# File will be accessible via this URL pattern
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{env('AWS_STORAGE_BUCKET_NAME')}"
+    f".s3.{env('AWS_S3_REGION_NAME')}.amazonaws.com"
+)
+
+# Organize uploads into folders by type
+AWS_LOCATION = 'assets'
+
+# Don't overwrite files with the same name
+AWS_S3_FILE_OVERWRITE = False
+
+# Files are private by default — only accessible via signed URLs
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+# === REST Framework Settings ===
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+

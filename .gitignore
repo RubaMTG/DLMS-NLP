@@ -1,14 +1,15 @@
-# Environment variables — NEVER upload this
+# Environment variables
 .env
 
 # Virtual environment
 .venv/
 venv/
 
-# Python cache files
+# Python cache
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyc
 
 # Django
 db.sqlite3
@@ -20,3 +21,6 @@ desktop.ini
 
 # VS Code
 .vscode/
+
+# AWS credentials
+*.json
