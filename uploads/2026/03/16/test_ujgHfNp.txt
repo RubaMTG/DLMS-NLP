@@ -1,0 +1,1 @@
+echo "This is a DLMS test document" > C:\Users\acer\Desktop\test.txt
