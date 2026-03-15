@@ -9,21 +9,13 @@ urlpatterns = [
     path('<uuid:asset_id>/delete/', views.delete_asset, name='delete_asset'),
 
     # Death certificate (Absher — not activated)
-    path(
-        'death-certificate/',
-        views.upload_death_certificate,
-        name='upload_death_certificate'
-    ),
+    path('death-certificate/', views.upload_death_certificate, name='upload_death_certificate'),
 
-    # Beneficiary endpoints
-    path(
-        'beneficiary/add/',
-        views.add_beneficiary,
-        name='add_beneficiary'
-    ),
-    path(
-        'beneficiary/assign/',
-        views.assign_asset_to_beneficiary,
-        name='assign_asset_to_beneficiary'
-    ),
+    # Beneficiary management (for asset owners)
+    path('beneficiary/add/', views.add_beneficiary, name='add_beneficiary'),
+    path('beneficiary/assign/', views.assign_asset_to_beneficiary, name='assign_asset_to_beneficiary'),
+
+    # Beneficiary access portal (for beneficiaries after death)
+    path('beneficiary/verify/', views.beneficiary_verify, name='beneficiary_verify'),
+    path('beneficiary/asset/', views.beneficiary_get_asset, name='beneficiary_get_asset'),
 ]
