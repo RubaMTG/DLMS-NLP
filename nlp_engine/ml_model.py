@@ -33,7 +33,7 @@ def preprocess(text):
 
 def get_embedding(text):
     """Return embedding vector for a given text."""
-    load_model()  # 🔥 تأكد تحميل الموديل عند الحاجة فقط
+    load_model()  #  تأكد تحميل الموديل عند الحاجة فقط
 
     text = preprocess(text)
     if not text:
