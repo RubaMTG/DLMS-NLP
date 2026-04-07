@@ -41,13 +41,15 @@ test_files = [
     "documentstest/LOW (1).pdf",
     "documentstest/LOW (2).pdf",
     "documentstest/LOW (3).pdf",
+    "documentstest/LOW (4).pdf",
+    "documentstest/LOW (5).pdf",
 ]
 
 y_true = [
     "HIGH", "HIGH", "HIGH", "HIGH", "HIGH",
     "HIGH", "HIGH", "HIGH", "HIGH",
     "MEDIUM", "MEDIUM", "MEDIUM", "MEDIUM", "MEDIUM",
-    "LOW", "LOW", "LOW",
+    "LOW", "LOW", "LOW", "LOW", "LOW",
 ]
 
 # ── Text extraction functions ─────────────────────────────────
