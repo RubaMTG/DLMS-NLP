@@ -4,7 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from encrypted_model_fields.fields import EncryptedCharField
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(
         User,
@@ -25,14 +24,13 @@ class UserProfile(models.Model):
         default='active'
     )
     inactivity_threshold_days = models.IntegerField(default=180)
-    death_verification_triggered_at = models.DateTimeField(
-        null=True, blank=True
-    )
+    nlp_classification_enabled = models.BooleanField(default=False)
+    death_verification_triggered_at = models.DateTimeField(null=True, blank=True)
     death_confirmed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def _str_(self):
+    def __str__(self):
         return f"Profile: {self.user.username} | {self.account_status}"
 
     def is_deceased(self):
@@ -41,12 +39,10 @@ class UserProfile(models.Model):
             'confirmed_deceased'
         ]
 
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

@@ -22,11 +22,12 @@ def upload_asset(request):
     if asset.content:
         text_to_analyze += ' ' + asset.content
     try:
-        nlp_result = final_classification(text_to_analyze)
-        asset.sensitivity_level = nlp_result['level']
-        asset.nlp_score = nlp_result['final_score']
-        asset.nlp_analyzed = True
-        asset.save()
+        if request.user.profile.nlp_classification_enabled:
+            nlp_result = final_classification(text_to_analyze)
+            asset.sensitivity_level = nlp_result['level']
+            asset.nlp_score = nlp_result['final_score']
+            asset.nlp_analyzed = True
+            asset.save()
     except Exception as e:
         logger.error(f'NLP failed for asset {asset.asset_id}: {e}')
     return Response(AssetUploadSerializer(asset, context={'request': request}).data, status=status.HTTP_201_CREATED)
