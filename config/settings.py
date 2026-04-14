@@ -14,7 +14,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 # === Security ===
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 # === Installed Apps ===
 INSTALLED_APPS = [
