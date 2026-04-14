@@ -2,8 +2,11 @@
 Django settings for config project.
 """
 from pathlib import Path
+import os
 import environ
 
+STATIC_URL ='/static/'
+static_root= os.path.join(BASE_DIR,'staticfiles')
 # === Paths ===
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -62,6 +65,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
