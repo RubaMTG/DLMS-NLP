@@ -4,11 +4,13 @@ Django settings for config project.
 from pathlib import Path
 import os
 import environ
-
-STATIC_URL ='/static/'
-static_root= os.path.join(BASE_DIR,'staticfiles')
 # === Paths ===
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL ='/static/'
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+
+
 
 # === Load .env file ===
 env = environ.Env(DEBUG=(bool, True))
